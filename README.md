@@ -8,3 +8,9 @@ git remote add origin https://github.com/dongryong/src.git
 git push -u origin main
 
 git clone https://github.com/dongryong/src.git
+
+git remote -v
+git remote update origin
+
+
+pip freeze > requirements.txt

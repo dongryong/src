@@ -1,5 +1,7 @@
 from django.db import models
-from django.contrib.auth.models import User 
+from django.contrib.auth.models import User
+from django.utils import timezone
+
 
 class Product(models.Model):
     name = models.CharField(max_length=220)
@@ -8,15 +10,18 @@ class Product(models.Model):
     def __str__(self):
         return str(self.name)
 
+
 class Purchase(models.Model):
-    product = models.ForeignKey(Product,on_delete=models.CASCADE)
-    price = models.PositiveIntegerField()
-    quanity = models.PositiveIntegerField()
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    price = models.DecimalField(decimal_places=2, max_digits=15)
+    quantity = models.PositiveIntegerField()
     total_price = models.PositiveIntegerField(blank=True)
     salesman = models.ForeignKey(User, on_delete=models.CASCADE)
-    date = models.DateTimeField(auto_now_add=True)
+    date = models.DateTimeField(default=timezone.now)
 
-    
+    def save(self, *args, **kwargs):
+        self.total_price = self.price * self.quantity
+        super().save(*args, **kwargs)
 
-
-
+    def __str__(self):
+        return f"Solled {self.product} - {self.quantity} items for {self.total_price}"
