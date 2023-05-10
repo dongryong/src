@@ -16,3 +16,7 @@ ul li {
 .block-center {
     text-align:center !important;
 }
+
+.field-width {
+    width: 100%;
+}

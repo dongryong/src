@@ -23,7 +23,7 @@ from products import urls as product_url
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',include(product_url), name="products"),
+    path('products/',include(product_url), name="products"),
 ]
 
 urlpatterns+= static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
